@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#113d45">
+<title>Epley Maneuver Guide</title>
+<style>
+:root{color-scheme:light;--ink:#16353a;--muted:#526a6d;--teal:#14535a;--pale:#eaf4f2;--line:#d4e2df;--gold:#f1c66d;--red:#8b2f28}
+*{box-sizing:border-box}body{margin:0;background:#f5f8f7;color:var(--ink);font:17px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}main{max-width:680px;margin:auto;padding:24px 18px 48px}.brand{font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:750;color:var(--teal)}h1{font-size:clamp(30px,7vw,42px);line-height:1.08;margin:12px 0}p{margin:10px 0}.intro{color:var(--muted);font-size:18px}.card{background:white;border:1px solid var(--line);border-radius:18px;padding:20px;margin:18px 0;box-shadow:0 5px 18px #12332b0a}.notice{background:#fff7e5;border-color:#efd99d}.urgent{background:#fff0ee;border-color:#e7b9b4}.notice strong,.urgent strong{display:block;margin-bottom:4px}.muted{color:var(--muted)}.choices{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}.choices button,.main-btn,.secondary{font:inherit;font-weight:700;border-radius:12px;padding:14px 16px;cursor:pointer}.choices button{background:white;border:2px solid var(--line);color:var(--ink)}.choices button.selected{border-color:var(--teal);background:var(--pale)}button:focus-visible{outline:3px solid #e3a92e;outline-offset:2px}.main-btn{width:100%;background:var(--teal);border:0;color:white}.secondary{background:white;border:1px solid var(--line);color:var(--ink)}.stepno{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--teal);font-weight:800}.step-title{font-size:25px;line-height:1.2;margin:5px 0 12px}.timer{font-size:56px;font-variant-numeric:tabular-nums;font-weight:750;letter-spacing:.03em;margin:8px 0;color:var(--teal)}.timer-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}.progress{height:8px;background:#e5eeec;border-radius:8px;overflow:hidden;margin:18px 0 8px}.progress span{display:block;height:100%;background:var(--teal);transition:width .2s}details{border-top:1px solid var(--line);padding-top:14px;margin-top:18px}summary{cursor:pointer;font-weight:700}small{font-size:14px;color:var(--muted)}a{color:#12565f}footer{margin-top:30px;font-size:14px;color:var(--muted)}[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+  <div class="brand">A guided home reference</div>
+  <h1>Epley maneuver</h1>
+  <p class="intro">A calm, step-by-step guide for positional vertigo that a clinician has identified as BPPV.</p>
+  <section class="card notice" aria-label="Important safety information">
+    <strong>Use this only if BPPV is familiar or has been diagnosed.</strong>
+    This guide does not diagnose the cause of dizziness. The correct side and maneuver depend on which inner-ear canal is involved.
+  </section>
+  <section id="start" class="card">
+    <h2 style="margin-top:0">Which ear is affected?</h2>
+    <p>Choose the side your clinician identified, or the side that reliably brings on your usual brief spinning with ordinary movements. If you’re unsure, don’t guess—ask a clinician or vestibular physical therapist.</p>
+    <div class="choices" role="group" aria-label="Choose affected ear">
+      <button id="leftBtn" type="button" aria-pressed="false">Left ear</button>
+      <button id="rightBtn" type="button" aria-pressed="false">Right ear</button>
+    </div>
+    <p id="selectedText" class="muted" aria-live="polite">Select a side to continue.</p>
+    <button id="begin" class="main-btn" type="button" disabled>Start the guide</button>
+  </section>
+  <section class="card urgent">
+    <strong>Stop and seek urgent medical care</strong>
+    if dizziness comes with new weakness or numbness, trouble speaking or walking, double vision, fainting, chest pain, or a sudden severe headache. For new or persistent vertigo, get medical advice rather than relying on this guide.
+  </section>
+  <section id="guide" class="card" hidden aria-live="polite">
+    <div class="stepno" id="stepCount"></div>
+    <h2 class="step-title" id="stepTitle"></h2>
+    <p id="stepText"></p>
+    <div id="timerArea" hidden>
+      <div class="timer" id="clock" aria-live="off">00:45</div>
+      <div class="timer-row">
+        <button id="timerToggle" class="secondary" type="button">Start timer</button>
+        <button id="timerReset" class="secondary" type="button">Reset timer</button>
+      </div>
+      <small>Stay in this position for about 30–60 seconds, or until the spinning settles.</small>
+    </div>
+    <div class="progress" aria-hidden="true"><span id="progress"></span></div>
+    <div class="actions">
+      <button id="back" class="secondary" type="button">Back</button>
+      <button id="next" class="main-btn" type="button">Next step</button>
+    </div>
+    <p id="doneText" hidden><strong>That’s the sequence.</strong> Sit quietly until steady. You may feel temporarily off balance. Have someone nearby if you feel unsteady, and don’t drive while dizzy.</p>
+  </section>
+  <footer>
+    <details>
+      <summary>About this guide and sources</summary>
+      <p>These instructions are a general educational aid and may not fit every cause or type of positional vertigo. A clinician can confirm the diagnosis and affected side, and show you the maneuver safely.</p>
+      <ul>
+        <li><a href="https://www.mayoclinic.org/diseases-conditions/vertigo/diagnosis-treatment/drc-20370060" target="_blank" rel="noopener">Mayo Clinic: BPPV diagnosis and treatment</a></li>
+        <li><a href="https://www.uhs.nhs.uk/Media/UHS-website-2019/Patientinformation/Audiology/Home-Epley-manoeuvre-to-treat-BPPV-right-ear-2783-PIL.pdf" target="_blank" rel="noopener">University Hospital Southampton: home Epley instructions</a></li>
+        <li><a href="https://www.mayoclinic.org/diseases-conditions/vertigo/symptoms-causes/syc-20370055" target="_blank" rel="noopener">Mayo Clinic: when vertigo needs medical attention</a></li>
+      </ul>
+    </details>
+  </footer>
+</main>
+<script>
+const copy={
+ left:[
+  ["Sit and turn your head","Sit on the bed. Turn your head about 45° toward the left ear."],
+  ["Lie back","Keeping your head turned, lie back briskly with your shoulders supported and your head gently tilted back. Wait here."],
+  ["Turn your head","Without lifting it, turn your head about 90° to the right. Wait here."],
+  ["Roll onto your side","Roll onto your right side. Turn your head so your nose points toward the floor. Wait here."],
+  ["Sit up slowly","Keeping your chin slightly tucked, sit up slowly from your right side. Sit quietly until steady."]
+ ],
+ right:[
+  ["Sit and turn your head","Sit on the bed. Turn your head about 45° toward the right ear."],
+  ["Lie back","Keeping your head turned, lie back briskly with your shoulders supported and your head gently tilted back. Wait here."],
+  ["Turn your head","Without lifting it, turn your head about 90° to the left. Wait here."],
+  ["Roll onto your side","Roll onto your left side. Turn your head so your nose points toward the floor. Wait here."],
+  ["Sit up slowly","Keeping your chin slightly tucked, sit up slowly from your left side. Sit quietly until steady."]
+ ]
+};
+let side=null,step=0,remaining=45,interval=null;
+const $=id=>document.getElementById(id);
+function choose(s){side=s;$("leftBtn").classList.toggle("selected",s==="left");$("rightBtn").classList.toggle("selected",s==="right");$("leftBtn").setAttribute("aria-pressed",s==="left");$("rightBtn").setAttribute("aria-pressed",s==="right");$("selectedText").textContent=`${s[0].toUpperCase()+s.slice(1)} ear selected. Do the maneuver on this side.`;$("begin").disabled=false}
+$("leftBtn").onclick=()=>choose("left");$("rightBtn").onclick=()=>choose("right");
+function show(){const list=copy[side],item=list[step],waiting=step>0&&step<4;$("stepCount").textContent=`Step ${step+1} of ${list.length} · ${side} ear`;$("stepTitle").textContent=item[0];$("stepText").textContent=item[1];$("timerArea").hidden=!waiting;$("clock").textContent=`00:${String(remaining).padStart(2,"0")}`;$("progress").style.width=`${((step+1)/list.length)*100}%`;$("back").disabled=step===0;$("next").textContent=step===list.length-1?"Finish":"Next step";$("doneText").hidden=step!==list.length-1}
+function stopTimer(){if(interval){clearInterval(interval);interval=null}$("timerToggle").textContent="Start timer"}$("begin").onclick=()=>{$("start").hidden=true;$("guide").hidden=false;step=0;show();window.scrollTo({top:0,behavior:"smooth"})};
+$("next").onclick=()=>{if(step<copy[side].length-1){step++;remaining=45;stopTimer();show()}else{$("doneText").hidden=false;$("next").disabled=true}};
+$("back").onclick=()=>{if(step>0){step--;remaining=45;stopTimer();show()}};
+$("timerToggle").onclick=()=>{if(interval){stopTimer();return}$("timerToggle").textContent="Pause timer";interval=setInterval(()=>{if(remaining>0){remaining--;$("clock").textContent=`00:${String(remaining).padStart(2,"0")}`}else{stopTimer()}},1000)};
+$("timerReset").onclick=()=>{stopTimer();remaining=45;$("clock").textContent="00:45"};
+</script>
+</body>
+</html>
